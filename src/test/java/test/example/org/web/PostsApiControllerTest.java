@@ -70,7 +70,7 @@ public class PostsApiControllerTest {
 
         List<Posts> all= postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
-        assertThat(all.get(0).getContnet()).isEqualTo(content);
+        assertThat(all.get(0).getContent()).isEqualTo(content);
 
     }
 
@@ -82,11 +82,11 @@ public class PostsApiControllerTest {
 
         Long updateId = savePosts.getId();
         String updateTitle = "title2";
-        String updateContnet = "contnet..22";
+        String updateContent = "contnet..22";
 
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
                 .title(updateTitle)
-                .content(updateContnet)
+                .content(updateContent)
                 .build();
 
         String url = "http://localhost:"+port+"/api/v1/posts/"+updateId;
@@ -102,8 +102,10 @@ public class PostsApiControllerTest {
 
         List<Posts> all =  postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(updateTitle);
-        assertThat(all.get(0).getContnet()).isEqualTo(updateContnet);
+        assertThat(all.get(0).getContent()).isEqualTo(updateContent);
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+all.get(0).getTitle());
     }
+
+
 }

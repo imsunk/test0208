@@ -3,17 +3,21 @@ package test.example.org.domain.posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,19 +27,25 @@ public class Posts {
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String contnet;
+    private String content;
 
     private String author;
+
+    @CreatedDate
+    private LocalDateTime createDate;
+
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
 
     @Builder
     public Posts(String title, String content, String author){
         this.title = title;
-        this.contnet = content;
+        this.content = content;
         this.author = author;
     }
 
     public void update(String title, String content){
         this.title =title;
-        this.contnet = content;
+        this.content = content;
     }
 }

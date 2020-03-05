@@ -5,28 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import test.example.org.config.auth.dto.SessionUser;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import test.example.org.service.posts.PostsService;
 import test.example.org.web.dto.PostsResponseDto;
-
-import javax.servlet.http.HttpSession;
+import test.example.org.web.dto.PostsUpdateRequestDto;
 
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
     private final PostsService postsService;
-    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("posts", postsService.findAllDesc());
-
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-
-        if (user !=null){
-            model.addAttribute("userName", user.getName());
-        }
-
         return "index";
     }
 
